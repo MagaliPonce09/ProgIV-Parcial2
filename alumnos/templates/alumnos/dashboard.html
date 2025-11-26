@@ -1,0 +1,74 @@
+<!-- prettier-ignore -->
+{% extends 'cuentas/base.html' %} {% block title %}Dashboard{% endblock %} 
+{%block content %}
+<h2>Mis alumnos</h2>
+
+<form method="post" class="mb-4">
+  {% csrf_token %} {{ form.as_p }}
+  <button type="submit" class="btn btn-primary">Agregar alumno</button>
+</form>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Edad</th>
+      <th>Carrera</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for alumno in alumnos %}
+    <tr>
+      <td>{{ alumno.nombre }}</td>
+      <td>{{ alumno.edad }}</td>
+      <td>{{ alumno.carrera }}</td>
+      <td>
+        <a
+          href="{% url 'alumno_pdf' alumno.id %}"
+          class="btn btn-sm btn-danger"
+        >
+          Descargar PDF
+        </a>
+      </td>
+    </tr>
+    {% empty %}
+    <tr>
+      <td colspan="4">No hay alumnos cargados.</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<h3 class="mt-5">Gráfico de edades</h3>
+<canvas id="grafico" width="400" height="200"></canvas>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  const labels = JSON.parse("{{ nombres_json|escapejs }}");
+  const data = JSON.parse("{{ edades_json|escapejs }}");
+
+  const ctx = document.getElementById("grafico").getContext("2d");
+  const chart = new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          label: "Edad",
+          data: data,
+          backgroundColor: "rgba(54, 162, 235, 0.6)",
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      scales: {
+        y: {
+          beginAtZero: true,
+        },
+      },
+    },
+  });
+</script>
+
+{% endblock %}

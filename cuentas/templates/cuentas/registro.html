@@ -1,0 +1,12 @@
+<!-- prettier-ignore -->
+{% extends 'cuentas/base.html' %}
+
+{% block title %}Registro{% endblock %}
+
+{% block content %}
+<h2>Registro</h2>
+<form method="post" class="mt-3">
+  {% csrf_token %} {{ form.as_p }}
+  <button type="submit" class="btn btn-primary">Registrarse</button>
+</form>
+{% endblock %}

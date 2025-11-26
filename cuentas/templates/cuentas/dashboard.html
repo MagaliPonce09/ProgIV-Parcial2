@@ -1,0 +1,9 @@
+<!-- prettier-ignore -->
+{% extends 'cuentas/base.html' %} 
+{% block title %}Dashboard{% endblock %} 
+{% block content %}
+
+<h2>Panel de alumnos</h2>
+<p>Bienvenido {{ user.username }}. Aquí podrás gestionar tus alumnos.</p>
+<a href="{% url 'registro' %}" class="btn btn-primary">Crear nuevo alumno</a>
+{% endblock %}

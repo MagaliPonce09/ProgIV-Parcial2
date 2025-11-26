@@ -1,0 +1,25 @@
+<!-- prettier-ignore -->
+{% extends 'cuentas/base.html' %} 
+{% block title %}Inicio{% endblock %} 
+{% block content %}
+<div class="text-center mt-5">
+  <h1 class="display-4">Bienvenido al Parcial Django</h1>
+  <p class="lead">
+    Este es tu proyecto base con Login, Registro y Dashboard de alumnos.
+  </p>
+  <hr class="my-4" />
+
+  {% if user.is_authenticated %}
+  <p>Hola {{ user.username }}, ya estás logueado.</p>
+  <a href="{% url 'dashboard' %}" class="btn btn-primary btn-lg"
+    >Ir al Dashboard</a
+  >
+  {% else %}
+  <p>Para continuar, ingresá o registrate.</p>
+  <a href="{% url 'login' %}" class="btn btn-success btn-lg">Ingresar</a>
+  <a href="{% url 'registro' %}" class="btn btn-outline-primary btn-lg"
+    >Registrarse</a
+  >
+  {% endif %}
+</div>
+{% endblock %}

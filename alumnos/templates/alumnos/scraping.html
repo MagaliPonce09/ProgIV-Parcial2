@@ -1,0 +1,11 @@
+<!-- prettier-ignore -->
+{% extends 'cuentas/base.html' %} 
+{% block title %}Scraping{% endblock %} 
+{%block content %}
+<h2>Últimos títulos</h2>
+<ul>
+  {% for t in titulos %}
+  <li>{{ t }}</li>
+  {% endfor %}
+</ul>
+{% endblock %}
